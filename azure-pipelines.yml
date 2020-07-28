@@ -1,5 +1,11 @@
 trigger:
-- master
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - azure-deploy.json
+    - azure-pipelines.yml
 
 pool:
   vmImage: 'ubuntu-latest'
