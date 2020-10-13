@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "q/SV45gLuzoMbcEZlwmtYeSwEyQJFf9ZERYcuYJ+Ry3KSMhFBDWwVAqkSvQTjQer5UKW4NJXw4U448kLi3iOBg==",
+  "dgSpecHash": "tnTpeI5bNve5oIZN0pveG468Fowd3GfX4sN1J4EHtGc6kn8vKRkGUY6GH+VwFlTD8YZV8i8jf8poGMoiEQZojA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rrabodzey\\Documents\\GitHub\\Templates\\AzurePipelineToAzureWebApp\\AzurePipelineToAzureWebApp.csproj",
+  "projectFilePath": "/Users/romanrabodzei/Documents/GitHub/Applications/DotNet-App-to-Azure-WebApp-using-Azure-Pipeline/MyWebApp.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
