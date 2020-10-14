@@ -20,7 +20,7 @@
       "outputPath": "/Users/romanrabodzei/Documents/GitHub/Applications/DotNet-App-to-Azure-WebApp-using-Azure-Pipeline/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/romanrabodzei/.config/NuGet/NuGet.Config"
+        "/Users/romanrabodzei/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "tnTpeI5bNve5oIZN0pveG468Fowd3GfX4sN1J4EHtGc6kn8vKRkGUY6GH+VwFlTD8YZV8i8jf8poGMoiEQZojA==",
+  "dgSpecHash": "U2TYxuPJ8nSrE1wPRDX+fTb8mqj8e6qr6mizfphvSqBIt/HOOpk7EgGi/0vt9x5IvBww2C7jlLn2wGwS8xRgZw==",
   "success": true,
   "projectFilePath": "/Users/romanrabodzei/Documents/GitHub/Applications/DotNet-App-to-Azure-WebApp-using-Azure-Pipeline/MyWebApp.csproj",
   "expectedPackageFiles": [],
