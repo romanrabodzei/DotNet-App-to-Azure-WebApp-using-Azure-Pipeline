@@ -7,27 +7,79 @@ trigger:
     - azure-deploy.json
     - azure-pipelines.yml
 
-pool:
-  vmImage: 'ubuntu-latest'
+stages:
+  - stage: Build Application
+    jobs:
+    - job: Build
+      pool:
+        vmImage: 'ubuntu-latest'
+      variables:
+        buildConfiguration: 'Release'
 
-variables:
-  buildConfiguration: 'Release'
+      steps:
+      - task: DotNetCoreCLI@2
+        displayName: 'dotnet build $(buildConfiguration)'
+        inputs:
+          command: 'build'
+          arguments: '--configuration $(buildConfiguration)'
 
-steps:
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet build $(buildConfiguration)'
-  inputs:
-    command: 'build'
-    arguments: '--configuration $(buildConfiguration)'
+      - task: DotNetCoreCLI@2
+        displayName: 'dotnet publish $(buildConfiguration)'
+        inputs:
+          command: publish
+          arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+          zipAfterPublish: true
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet publish $(buildConfiguration)'
-  inputs:
-    command: publish
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: true
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+          artifactName: 'myapp'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'myapp'
+  - stage: Release Pipeline
+    jobs:
+    - job: Create
+      pool:
+        vmImage: 'ubuntu-latest'
+      variables:
+        LOCATION: 'westeurope'
+        RG: 'dotnetapprg'
+        SERVPLAN: 'dotnetappsp'
+        WEBAPP: 'dotnetapp0298'
+
+      steps:
+      - task: AzureCLI@2
+        displayName: 'Creating Resource Group'
+        inputs:
+          azureSubscription: 'Azure Free Subscription'
+          scriptType: ps
+          scriptLocation: inlineScript
+          inlineScript: 'az group create --location $(LOCATION) --name $(RG)'
+
+      - task: AzureCLI@2
+        displayName: 'Create Application Service Plan'
+        inputs:
+          azureSubscription: 'Azure Free Subscription'
+          scriptType: ps
+          scriptLocation: inlineScript
+          inlineScript: 'az appservice plan create --resource-group $(RG) --name $(SERVPLAN) --location $(LOCATION) --sku S1'
+
+      - task: AzureCLI@2
+        displayName: 'Creating Web Application'
+        inputs:
+          azureSubscription: 'Azure Free Subscription'
+          scriptType: ps
+          scriptLocation: inlineScript
+          inlineScript: 'az webapp create --resource-group $(RG) --plan $(SERVPLAN) --name $(WEBAPP) --runtime "DOTNETCORE|3.1"'
+
+    - job: Deploy
+      pool:
+        vmImage: 'vs2017-win2016'
+      variables:
+        WEBAPP: 'dotnetapp0298'
+      
+      steps:
+      - task: AzureRmWebAppDeployment@4
+        displayName: 'Azure App Service Deploy'
+        inputs:
+          azureSubscription: 'Azure Free Subscription'
+          WebAppName: '$(WEBAPP)'
