@@ -2,6 +2,8 @@
 
 There a simple .Net Application for Azure Web Applicaton service. By default building infrastructure for this simple application already has been included in the azure-pipeline file. If you are going to create infrastructure using ARM template please remove the "Release Pipeline" stage from the azure-pipeline file. 
 
+[![Build Status](https://dev.azure.com/romanrabodzei/ASP%20DotNet%20Core%20Application/_apis/build/status/GUI%20CI?branchName=master)](https://dev.azure.com/romanrabodzei/ASP%20DotNet%20Core%20Application/_build/latest?definitionId=6&branchName=master)
+
 ## Deploy the App Service Infrastructure using ARM:
 Click the button below to deploy an Azure Web App using ARM template. This will create a new app service plan and web app. You can then create build and release pipelines at dev.azure.com to continuously deploy the application in this repo to the web app.
 
